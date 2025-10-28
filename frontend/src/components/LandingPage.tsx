@@ -1,11 +1,22 @@
 import React from 'react';
-import { FileText, Zap, Users, Download, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { FileText, Zap, Users, Download, ArrowRight, LogOut } from 'lucide-react';
 
 interface LandingPageProps {
   onNavigate: (page: 'landing' | 'generator' | 'templates' | 'dashboard') => void;
 }
 
 const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Optional: clear token if you re-enable authentication later
+    localStorage.removeItem("authToken");
+
+    // Redirect to login page
+    navigate("/login");
+  };
+
   return (
     <div className="min-h-screen bg-beige-200">
       {/* Navigation Bar */}
@@ -16,7 +27,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               <FileText className="h-8 w-8 text-beige-500" />
               <span className="text-xl font-bold text-white">PRD Studio</span>
             </div>
-            <div className="flex space-x-6">
+            <div className="flex space-x-6 items-center">
               <button
                 onClick={() => onNavigate('templates')}
                 className="text-beige-300 hover:text-white font-medium transition-colors"
@@ -28,6 +39,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                 className="text-beige-300 hover:text-white font-medium transition-colors"
               >
                 Dashboard
+              </button>
+
+              {/* Logout Button */}
+              <button
+                onClick={handleLogout}
+                className="flex items-center space-x-2 text-beige-300 hover:text-red-400 font-medium transition-colors"
+              >
+                <LogOut className="h-5 w-5" />
+                <span>Logout</span>
               </button>
             </div>
           </div>

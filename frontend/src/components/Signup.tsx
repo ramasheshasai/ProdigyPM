@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -7,6 +8,8 @@ const Signup: React.FC = () => {
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -14,45 +17,66 @@ const Signup: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
+
     try {
       const res = await axios.post("http://localhost:5000/api/auth/signup", formData);
-      alert(res.data.message);
+      localStorage.setItem("authToken", res.data.token);
+      navigate("/landing"); // ✅ redirect to landing after signup
     } catch (err: any) {
-      alert(err.response?.data?.message || "Signup failed");
+      setError(err.response?.data?.message || "Signup failed. Try again.");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-beige-100">
-      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h2 className="text-2xl font-bold text-center mb-6 text-primary-900">Create Account</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 className="text-2xl font-bold mb-4 text-center">Sign Up</h2>
+        {error && <p className="text-red-500 mb-2 text-sm">{error}</p>}
+
         <input
           type="text"
           name="name"
           placeholder="Full Name"
-          className="w-full p-2 border mb-4 rounded"
+          value={formData.name}
           onChange={handleChange}
+          className="w-full p-2 mb-3 border rounded"
           required
         />
+
         <input
           type="email"
           name="email"
           placeholder="Email"
-          className="w-full p-2 border mb-4 rounded"
+          value={formData.email}
           onChange={handleChange}
+          className="w-full p-2 mb-3 border rounded"
           required
         />
+
         <input
           type="password"
           name="password"
           placeholder="Password"
-          className="w-full p-2 border mb-6 rounded"
+          value={formData.password}
           onChange={handleChange}
+          className="w-full p-2 mb-4 border rounded"
           required
         />
-        <button type="submit" className="w-full bg-olive-700 text-white py-2 rounded hover:bg-olive-800">
+
+        <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
           Sign Up
         </button>
+
+        <p className="text-sm mt-3 text-center">
+          Already have an account?{" "}
+          <span
+            onClick={() => navigate("/login")}
+            className="text-blue-600 hover:underline cursor-pointer"
+          >
+            Login
+          </span>
+        </p>
       </form>
     </div>
   );

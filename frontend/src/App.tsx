@@ -5,27 +5,23 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 
 const App: React.FC = () => {
-  const isAuthenticated = localStorage.getItem("authToken"); // or use context later
-
   return (
     <Router>
       <Routes>
-        {/* Default route — redirect to login if not authenticated */}
-        <Route
-          path="/"
-          element={
-            isAuthenticated ? (
-              <LandingPage onNavigate={() => {}} />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-        <Route path="/login" element={<Login />} />
+        {/* Default route → Signup */}
+        <Route path="/" element={<Navigate to="/signup" />} />
+
+        {/* Signup Page */}
         <Route path="/signup" element={<Signup />} />
 
-        {/* Optional: Catch-all route */}
-        <Route path="*" element={<Navigate to="/" />} />
+        {/* Login Page */}
+        <Route path="/login" element={<Login />} />
+
+        {/* Landing Page */}
+        <Route path="/landing" element={<LandingPage onNavigate={() => {}} />} />
+
+        {/* Fallback route */}
+        <Route path="*" element={<Navigate to="/signup" />} />
       </Routes>
     </Router>
   );

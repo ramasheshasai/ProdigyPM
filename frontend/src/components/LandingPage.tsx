@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FileText, Zap, Users, Download, ArrowRight, LogOut } from 'lucide-react';
+import { FileText, Zap, Users, Download, ArrowRight, LogOut, Workflow } from 'lucide-react';
 
 interface LandingPageProps {
   onNavigate: (page: 'landing' | 'generator' | 'templates' | 'dashboard') => void;
@@ -10,134 +10,128 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Optional: clear token if you re-enable authentication later
     localStorage.removeItem("authToken");
-
-    // Redirect to login page
     navigate("/login");
   };
 
   return (
-    <div className="min-h-screen bg-beige-200">
-      {/* Navigation Bar */}
-      <nav className="bg-primary-900 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-2">
-              <FileText className="h-8 w-8 text-beige-500" />
-              <span className="text-xl font-bold text-white">PRD Studio</span>
-            </div>
-            <div className="flex space-x-6 items-center">
-              <button
-                onClick={() => onNavigate('templates')}
-                className="text-beige-300 hover:text-white font-medium transition-colors"
-              >
-                Templates
-              </button>
-              <button
-                onClick={() => onNavigate('dashboard')}
-                className="text-beige-300 hover:text-white font-medium transition-colors"
-              >
-                Dashboard
-              </button>
+    <div className="min-h-screen bg-gradient-to-b from-[#F9FAFB] to-[#F0F4F8] font-sans">
+      {/* ======================== NAVBAR ======================== */}
+      <nav className="bg-primary-900 shadow-md sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+          <div className="flex items-center space-x-2">
+            <FileText className="h-8 w-8 text-olive-400" />
+            <span className="text-2xl font-semibold text-white tracking-wide">
+              ProdigyPM
+            </span>
+          </div>
 
-              {/* Logout Button */}
-              <button
-                onClick={handleLogout}
-                className="flex items-center space-x-2 text-beige-300 hover:text-red-400 font-medium transition-colors"
-              >
-                <LogOut className="h-5 w-5" />
-                <span>Logout</span>
-              </button>
-            </div>
+          <div className="flex items-center space-x-6">
+            <button
+              onClick={() => onNavigate('templates')}
+              className="text-beige-300 hover:text-white transition-colors"
+            >
+              Templates
+            </button>
+            <button
+              onClick={() => onNavigate('dashboard')}
+              className="text-beige-300 hover:text-white transition-colors"
+            >
+              Dashboard
+            </button>
+            <button
+              onClick={handleLogout}
+              className="flex items-center space-x-2 text-beige-300 hover:text-red-400 transition-colors"
+            >
+              <LogOut className="h-5 w-5" />
+              <span>Logout</span>
+            </button>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 text-center">
-        <h1 className="text-4xl font-bold text-primary-900 mb-6 leading-tight font-sans">
-          Professional PRD Creation
-          <span className="text-olive-700"> Made Simple</span>
+      {/* ======================== HERO ======================== */}
+      <section className="text-center py-24 px-6">
+        <h1 className="text-5xl font-extrabold text-primary-900 mb-6 leading-tight">
+          Simplify Your Product Documentation with
+          <span className="text-olive-700"> ProdigyPM</span>
         </h1>
-        <p className="text-lg text-primary-700 mb-8 max-w-3xl mx-auto leading-relaxed font-body">
-          Transform your product ideas into comprehensive requirement documents.
-          Structured templates and guided workflows help you create professional
-          PRDs that drive successful product development.
+        <p className="text-lg text-primary-700 mb-10 max-w-2xl mx-auto leading-relaxed">
+          Empower your product team with structured, insightful, and collaborative PRDs.
+          Turn ideas into well-defined product requirements — faster, clearer, and smarter.
         </p>
         <button
           onClick={() => onNavigate('generator')}
-          className="bg-olive-700 hover:bg-olive-800 text-white px-8 py-4 rounded-lg text-lg font-semibold 
-                     transition-all shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 mx-auto"
+          className="bg-olive-700 hover:bg-olive-800 text-white px-10 py-4 rounded-xl text-lg font-semibold 
+                     shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300
+                     flex items-center justify-center mx-auto space-x-2"
         >
           <span>Create New PRD</span>
           <ArrowRight className="h-5 w-5" />
         </button>
-      </div>
+      </section>
 
-      {/* Features Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <h2 className="text-3xl font-bold text-center text-primary-900 mb-12 font-sans">
-          Complete PRD Workflow
+      {/* ======================== FEATURES ======================== */}
+      <section className="max-w-7xl mx-auto px-6 pt-13 pb-10">
+        <h2 className="text-3xl font-bold text-center text-primary-900 mb-14">
+          Everything You Need to Build Clear, Impactful PRDs
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           <FeatureCard
             icon={<Zap className="h-8 w-8 text-olive-700" />}
             title="Structured Templates"
-            description="Pre-built frameworks for common PRD scenarios with guided prompts and best practices."
+            description="Choose from ready-to-use PRD frameworks designed by product experts. Focus on strategy, not formatting."
           />
           <FeatureCard
-            icon={<FileText className="h-8 w-8 text-orange-600" />}
-            title="Professional Format"
-            description="Industry-standard PRD structure with all essential sections and documentation standards."
+            icon={<Workflow className="h-8 w-8 text-orange-600" />}
+            title="Smart Workflow"
+            description="Follow guided prompts to ensure every key section — from vision to KPIs — is covered with clarity."
           />
           <FeatureCard
             icon={<Users className="h-8 w-8 text-primary-600" />}
-            title="Export & Share"
-            description="Download PRDs in multiple formats and share with stakeholders and development teams."
+            title="Collaborate & Share"
+            description="Export in multiple formats or share directly with stakeholders to align vision across teams."
           />
           <FeatureCard
             icon={<Download className="h-8 w-8 text-olive-600" />}
-            title="Document Management"
-            description="Save, organize, and manage your PRD library with version tracking and easy access."
+            title="PRD Library"
+            description="Store, version, and revisit your documents — all your product requirements in one organized space."
           />
         </div>
-      </div>
+      </section>
 
-      {/* Stats Section */}
-      <div className="bg-white py-16 border-t border-primary-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-          <Stat number="85%" label="Time Saved" />
-          <Stat number="12" label="Essential Sections" />
-          <Stat number="4" label="PRD Templates" />
+      {/* ======================== STATS ======================== */}
+      <section className="bg-white py-16 border-t border-primary-100">
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+          <Stat number="85%" label="Time Saved per PRD" />
+          <Stat number="12+" label="Predefined Sections" />
+          <Stat number="4+" label="Expert Templates" />
         </div>
-      </div>
+      </section>
 
-      {/* CTA Section */}
-      <div className="bg-primary-900 py-16">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-white mb-4 font-sans">
-            Ready to create better PRDs?
+      {/* ======================== CTA ======================== */}
+      <section className="bg-primary-900 py-20 mt-10">
+        <div className="max-w-3xl mx-auto text-center px-6">
+          <h2 className="text-4xl font-bold text-white mb-5">
+            Document with Confidence and Clarity
           </h2>
-          <p className="text-beige-300 text-lg mb-8 font-body">
-            Start documenting your product requirements with professional structure and clarity.
+          <p className="text-beige-300 text-lg mb-9">
+            From discovery to delivery — ProdigyPM helps teams define, structure, and communicate product goals effectively.
           </p>
           <button
             onClick={() => onNavigate('generator')}
-            className="bg-olive-700 hover:bg-olive-800 text-white px-8 py-4 rounded-lg text-lg font-semibold 
-                     transition-colors shadow-lg"
+            className="bg-olive-700 hover:bg-olive-800 text-white px-10 py-3 rounded-xl text-lg font-semibold 
+                       shadow-lg transition-all transform hover:-translate-y-0.5"
           >
             Start Creating
           </button>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
 
-/* ============================
-   Feature Card Component
-============================ */
+/* ======================== FEATURE CARD ======================== */
 interface FeatureCardProps {
   icon: React.ReactNode;
   title: string;
@@ -145,25 +139,23 @@ interface FeatureCardProps {
 }
 
 const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description }) => (
-  <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow border border-primary-200">
+  <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 border border-primary-100">
     <div className="mb-4">{icon}</div>
-    <h3 className="text-lg font-semibold text-primary-900 mb-2 font-sans">{title}</h3>
-    <p className="text-primary-600 leading-relaxed font-body text-sm">{description}</p>
+    <h3 className="text-lg font-semibold text-primary-900 mb-3">{title}</h3>
+    <p className="text-primary-700 leading-relaxed text-sm">{description}</p>
   </div>
 );
 
-/* ============================
-   Stat Component
-============================ */
+/* ======================== STAT CARD ======================== */
 interface StatProps {
   number: string;
   label: string;
 }
 
 const Stat: React.FC<StatProps> = ({ number, label }) => (
-  <div>
-    <div className="text-4xl font-bold text-olive-700 mb-2 font-sans">{number}</div>
-    <div className="text-primary-600 font-body">{label}</div>
+  <div className="flex flex-col items-center">
+    <div className="text-5xl font-extrabold text-olive-700 mb-3">{number}</div>
+    <div className="text-primary-600 text-lg">{label}</div>
   </div>
 );
 

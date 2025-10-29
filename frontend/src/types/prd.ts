@@ -19,12 +19,17 @@ export interface PRDTemplate {
   id: string;
   name: string;
   description: string;
-  category: 'new-feature' | 'enhancement' | 'bug-fix' | 'mvp';
+  category: string;
   template: {
     problemStatement: string;
-    targetAudience: string;
-    goals: string;
+    userPersonas: string;
+    painPoints: string;
+    overview: string;
+    userFlow: string;
+    solution: string;
     features: string;
-    constraints: string;
+    technicalFeasibility: string;
+    keyMetrics: string;
+    futureScope: string;
   };
-}</parameter>
+}

@@ -7,7 +7,6 @@ import Templates from "./components/Templates";
 import Dashboard from "./components/Dashboard";
 import PRDGenerator from "./components/PRDGenerator";
 
-// ✅ A wrapper for LandingPage to handle navigation properly
 const LandingWrapper: React.FC = () => {
   const navigate = useNavigate();
 
@@ -18,6 +17,33 @@ const LandingWrapper: React.FC = () => {
   };
 
   return <LandingPage onNavigate={handleNavigate} />;
+};
+
+// ✅ Proper wrapper for Templates page (so hooks like useNavigate work)
+const TemplatesWrapper: React.FC = () => {
+  const navigate = useNavigate();
+
+  return (
+    <Templates
+      onSelectTemplate={(template) => navigate("/generator", { state: { template } })}
+      onBack={() => navigate("/landing")}
+    />
+  );
+};
+
+// ✅ Wrapper for PRDGenerator (to handle navigation)
+const PRDGeneratorWrapper: React.FC = () => {
+  const navigate = useNavigate();
+  const state = history.state?.usr || {}; // fallback for React Router 6.x
+  const template = state?.template;
+
+  return (
+    <PRDGenerator
+      template={template}
+      onSave={(prd) => console.log("✅ Saved PRD:", prd)}
+      onBack={() => navigate("/landing")}
+    />
+  );
 };
 
 const App: React.FC = () => {
@@ -33,40 +59,25 @@ const App: React.FC = () => {
         {/* Login Page */}
         <Route path="/login" element={<Login />} />
 
-        {/* ✅ Landing Page with routing */}
+        {/* Landing Page */}
         <Route path="/landing" element={<LandingWrapper />} />
-                {/* ✅ Generator Page */}{/* ✅ Dashboard Page */}
+
+        {/* Templates Page */}
+        <Route path="/templates" element={<TemplatesWrapper />} />
+
+        {/* Dashboard */}
         <Route
           path="/dashboard"
           element={
             <Dashboard
-              prds={[]} // Pass your PRD data array here
+              prds={[]} // your data array here
               onBack={() => window.history.back()}
             />
           }
         />
 
-        {/* ✅ Generator Page */}
-        <Route
-  path="/generator"
-  element={
-    <PRDGenerator
-      onSave={(prd) => console.log("Saved PRD:", prd)}
-      onBack={() => window.history.back()}
-    />
-  }
-/>
-
-        {/* ✅ Templates Page */}
-        <Route
-          path="/templates"
-          element={
-            <Templates
-              onSelectTemplate={() => {}}
-              onBack={() => window.history.back()}
-            />
-          }
-        />
+        {/* PRD Generator Page */}
+        <Route path="/generator" element={<PRDGeneratorWrapper />} />
 
         {/* Fallback route */}
         <Route path="*" element={<Navigate to="/signup" />} />

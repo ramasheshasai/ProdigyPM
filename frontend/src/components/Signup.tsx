@@ -64,7 +64,7 @@ const Signup: React.FC = () => {
           required
         />
 
-        <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+        <button type="submit" className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
           Sign Up
         </button>
 
@@ -72,7 +72,7 @@ const Signup: React.FC = () => {
           Already have an account?{" "}
           <span
             onClick={() => navigate("/login")}
-            className="text-blue-600 hover:underline cursor-pointer"
+            className="text-green-600 hover:underline cursor-pointer"
           >
             Login
           </span>

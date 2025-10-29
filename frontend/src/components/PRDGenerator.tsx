@@ -115,15 +115,42 @@ const PRDGenerator: React.FC<PRDGeneratorProps> = ({ onSave, template, onBack })
   ];
 
   if (generatedPRD) {
-    return (
-      <PRDOutput
-        prd={generatedPRD}
-        onSave={() => onSave(generatedPRD)}
-        onBack={() => setGeneratedPRD(null)}
-        onHome={onBack}
-      />
-    );
-  }
+  const handleSave = async () => {
+    const userId = localStorage.getItem("userId"); // 🔑 Get logged-in user's ID
+    if (!userId) {
+      alert("User not found — please log in again.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/prds", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...generatedPRD, userId }),
+      });
+
+      if (response.ok) {
+        alert("✅ PRD saved successfully!");
+        onSave(generatedPRD);
+      } else {
+        alert("❌ Failed to save PRD.");
+      }
+    } catch (err) {
+      console.error("Error saving PRD:", err);
+      alert("⚠️ Something went wrong while saving the PRD.");
+    }
+  };
+
+  return (
+    <PRDOutput
+      prd={generatedPRD}
+      onSave={handleSave} // 👈 use the new function
+      onBack={() => setGeneratedPRD(null)}
+      onHome={onBack}
+    />
+  );
+}
+
 
   return (
     <div className="min-h-screen bg-beige-200">

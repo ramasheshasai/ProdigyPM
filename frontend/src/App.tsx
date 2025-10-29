@@ -6,6 +6,7 @@ import Signup from "./components/Signup";
 import Templates from "./components/Templates";
 import Dashboard from "./components/Dashboard";
 import PRDGenerator from "./components/PRDGenerator";
+import DashboardContainer from "./components/DashboardContainer";
 
 const LandingWrapper: React.FC = () => {
   const navigate = useNavigate();
@@ -62,6 +63,8 @@ const App: React.FC = () => {
         {/* Landing Page */}
         <Route path="/landing" element={<LandingWrapper />} />
 
+        
+        <Route path="/dashboard" element={<DashboardContainer />} />
         {/* Templates Page */}
         <Route path="/templates" element={<TemplatesWrapper />} />
 

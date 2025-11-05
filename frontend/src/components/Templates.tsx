@@ -10,113 +10,170 @@ interface TemplatesProps {
 const Templates: React.FC<TemplatesProps> = ({ onSelectTemplate, onBack }) => {
   const templates: PRDTemplate[] = [
     {
-      id: 'new-feature',
-      name: 'New Feature PRD',
-      description: 'For defining and launching a brand-new product feature from scratch.',
-      category: 'new-feature',
+      id: "new-feature",
+      name: "New Feature PRD",
+      description: "Define and deliver a new capability that drives measurable user value.",
+      category: "new-feature",
       template: {
-        problemStatement: `Users struggle to [specific issue], limiting engagement and retention.`,
-        userPersonas: `Primary users: [Persona A - job role, needs]; Secondary users: [Persona B - motivation].`,
-        painPoints: `Lack of automation, complex workflows, and missing integrations.`,
-        overview: `Research shows 70% of users drop off during step 3 due to poor navigation.`,
-        userFlow: `User logs in → navigates to [section] → performs [task] → receives [outcome].`,
-        solution: `Introduce an intuitive feature that automates repetitive tasks and improves efficiency.`,
-        features: `1. Core module for [action]\n2. Notification system\n3. Analytics dashboard`,
-        technicalFeasibility: `Tech stack: React + Node.js + MongoDB. Requires integration with Auth API and metrics service.`,
-        keyMetrics: `Adoption rate > 40%, task completion time reduced by 30%, NPS +10 points.`,
-        futureScope: `Phase 2: Add AI-powered suggestions and integrations with 3rd-party tools.`,
+        problemStatement: `Users currently face friction in accomplishing [core task], resulting in 
+      reduced engagement and a decline in overall satisfaction. Current solutions are fragmented, forcing users to rely on external tools or manual steps that slow down productivity.`,
+        userPersonas: `Primary: Active users who frequently engage with [core product area] and seek a faster, more intuitive experience.\nSecondary: New users evaluating the platform for
+       its ease of use, discoverability, and efficiency in achieving outcomes.`,
+        painPoints: `Users struggle with manual, repetitive steps that increase cognitive load. Lack of streamlined workflows leads to frustration, decreased productivity, and eventual churn.`,
+        overview: `Usage analytics highlight a consistent drop-off at the [specific step or stage] of the workflow. Feedback from user interviews and surveys 
+      indicates that the absence of [specific capability] is a recurring theme affecting engagement and retention.`,
+        userFlow: `User launches the platform → navigates to [specific module] → initiates [task or action] → 
+      encounters friction or confusion due to missing or unclear functionality → abandons task or exits session.`,
+        solution: `Develop and introduce a new feature module that automates key repetitive tasks, improves clarity in navigation, and enhances task completion rates. The experience should feel natural, 
+      integrated, and outcome-focused — reducing the time to value for users.`,
+        features: `Core components include a unified workspace with guided interactions, contextual help, and progress feedback.
+       The feature will seamlessly connect to existing modules and maintain UI/UX consistency.`,
+        technicalFeasibility: `Implementation through the MERN stack leveraging modular architecture for scalability. Requires integration with existing authentication, analytics, 
+      and data storage services to maintain user continuity and real-time insights.`,
+        keyMetrics: `↑ Retention (x%), ↓ Task completion time (−y%), ↑ NPS (z).`,
+        futureScope: `Next phase: Add personalization and AI-driven recommendations.`,
       },
     },
     {
-      id: 'enhancement',
-      name: 'Feature Enhancement PRD',
-      description: 'For improving an existing feature or refining its UX and performance.',
-      category: 'enhancement',
+      id: "enhancement",
+      name: "Feature Enhancement PRD",
+      description: "Refine and optimize an existing feature to improve usability, performance, and user satisfaction.",
+      category: "enhancement",
       template: {
-        problemStatement: `Current [feature] has usability gaps and limited visibility in analytics.`,
-        userPersonas: `Existing customers who rely on [feature] for daily operations.`,
-        painPoints: `Frequent slowdowns, confusing navigation, inconsistent output.`,
-        overview: `Heatmap and feedback reveal low interaction rates in 2 main UI sections.`,
-        userFlow: `User enters [module] → attempts [action] → faces [bottleneck].`,
-        solution: `Redesign UI with improved information hierarchy and backend caching.`,
-        features: `1. Faster data rendering\n2. Simplified layout\n3. Accessibility improvements`,
-        technicalFeasibility: `Minor backend updates, front-end rework in React, low-risk deployment.`,
-        keyMetrics: `Page load time < 2s, 20% increase in retention, 50% fewer support tickets.`,
-        futureScope: `Introduce predictive assistance for common tasks.`,
+        problemStatement: `The current [feature] exhibits usability and performance gaps that limit its effectiveness. Users encounter friction while completing routine actions, resulting in reduced adoption and inconsistent engagement across sessions.`,
+
+        userPersonas: `Primary: Existing customers who use [feature] as part of their daily workflow and depend on it for task completion.\nSecondary: Occasional users who engage intermittently but expect reliability and responsiveness when needed.`,
+
+        painPoints: `Users report frequent lags during interaction, unclear navigation patterns, and unpredictable outcomes that create distrust in the system. This impacts both efficiency and user confidence.`,
+
+        overview: `User feedback, heatmaps, and analytics indicate low engagement in critical sections of the UI. Performance tracing reveals that backend response times and client-side rendering inefficiencies contribute to slower load experiences and feature abandonment.`,
+
+        userFlow: `User accesses [module] → initiates [task/action] → experiences delays or confusion at [specific step] → drops or retries multiple times before completion.`,
+
+        solution: `Redesign and optimize the existing feature by introducing a cleaner layout, clearer navigation cues, and backend caching improvements. The goal is to make the feature more intuitive, faster, and consistent without altering its core functionality.`,
+
+        features: `Enhancements include an improved layout hierarchy, optimized API calls for faster data retrieval, and accessibility improvements for inclusive usage. The update should preserve familiar patterns while elevating overall user satisfaction.`,
+
+        technicalFeasibility: `Requires focused front-end refactoring in React for rendering optimization and lightweight backend updates for data caching. Deployment considered low-risk as changes are isolated and backward-compatible.`,
+
+        keyMetrics: `Target outcomes: reduced page load time (x seconds), improved retention (y%), and decrease in user-reported support tickets (z%).`,
+
+        futureScope: `Future iterations may introduce intelligent suggestions, predictive task flows, and analytics dashboards to continuously enhance user experience.`,
       },
     },
+
+   {
+  id: "bug-fix",
+  name: "Bug Fix PRD",
+  description: "Address and resolve a high-priority production issue impacting stability, data integrity, and user trust.",
+  category: "bug-fix",
+  template: {
+    problemStatement: `A critical defect in [module] is leading to inconsistent data handling and frequent user disruptions. This issue directly impacts live sessions, resulting in broken workflows and loss of confidence among active users.`,
+    
+    userPersonas: `Primary: Active users operating on version [X.Y.Z] who depend on uninterrupted workflows for daily operations.\nSecondary: Support and QA teams monitoring system health and user complaints.`,
+    
+    painPoints: `Users are experiencing incorrect data synchronization, misleading error prompts, and intermittent crashes during high-load operations. These issues degrade reliability and delay key user actions.`,
+    
+    overview: `System monitoring and log reports indicate a significant spike in API call failures between [service A] and [service B], affecting roughly x% of active sessions. Root cause analysis points to improper exception handling and synchronization gaps across dependent modules.`,
+    
+    userFlow: `User triggers [specific action] → API request fails mid-operation → transaction rollback incomplete → inconsistent data stored → user receives unclear error feedback.`,
+    
+    solution: `Implement a structured patch focusing on synchronization logic, enhanced input validation, and reliable retry mechanisms. Additionally, introduce robust error handling to prevent data corruption and improve traceability for debugging.`,
+    
+    features: `Key improvements include optimized API response validation, enhanced logging middleware for better observability, and a comprehensive regression testing suite to verify stability before deployment.`,
+    
+    technicalFeasibility: `Patch implementation limited to the microservice communication layer and associated APIs. Requires end-to-end testing in staging before production rollout to ensure compatibility and performance integrity.`,
+    
+    keyMetrics: `Expected outcomes include reduced API failure rate (x%), improved crash-free session rate (y%), and lower user-reported issue count (z%).`,
+    
+    futureScope: `Future iterations aim to automate anomaly detection, integrate rollback safety nets, and implement real-time error alerting to proactively address similar issues.`,
+  },
+},
+
     {
-      id: 'bug-fix',
-      name: 'Critical Bug Fix PRD',
-      description: 'For identifying and resolving production bugs or stability issues.',
-      category: 'bug-fix',
-      template: {
-        problemStatement: `Bug in [module] causing data inconsistency and user frustration.`,
-        userPersonas: `All active users affected by version [X.Y.Z].`,
-        painPoints: `Data not syncing correctly, incorrect error messages, and crashes.`,
-        overview: `Log analysis shows 30% failure rate during API calls between components.`,
-        userFlow: `User performs [action] → API fails → data loss occurs.`,
-        solution: `Fix data sync logic, improve validation, and introduce retry mechanisms.`,
-        features: `1. Refactor API endpoints\n2. Add logging middleware\n3. QA regression suite`,
-        technicalFeasibility: `Requires code patch in microservice layer; testing in staging.`,
-        keyMetrics: `Error rate < 1%, crash-free sessions > 99%.`,
-        futureScope: `Automate monitoring and rollback in case of future similar issues.`,
-      },
-    },
+  id: "mvp",
+  name: "MVP (Minimum Viable Product) PRD",
+  description: "Define, develop, and launch the first minimal product version to validate market potential and user demand.",
+  category: "mvp",
+  template: {
+    problemStatement: `There is an unmet need in the [idea/problem space], where users lack an efficient and accessible solution to streamline their core tasks. The MVP aims to validate the product-market fit by addressing a focused problem with measurable impact.`,
+    
+    userPersonas: `Primary: Early adopters in [industry/segment], primarily small teams or startups seeking simple, efficient tools.\nSecondary: Founders and innovators exploring lightweight alternatives to complex enterprise systems.`,
+    
+    painPoints: `Current solutions are overly complex or expensive. Users face high manual effort, fragmented workflows, and limited customization options that slow adoption and productivity.`,
+    
+    overview: `Market research and competitive analysis highlight a significant gap for an intuitive, no-frills tool offering essential capabilities with minimal setup. Early interviews confirm user interest in a lean, outcome-driven product that delivers quick value.`,
+    
+    userFlow: `User discovers product → signs up using basic credentials → completes initial setup → performs the key workflow → achieves a tangible result within x minutes of onboarding.`,
+    
+    solution: `Develop a focused MVP that includes only the essential components required for early validation. Emphasize ease of use, speed, and reliability to deliver immediate user value while collecting behavioral insights.`,
+    
+    features: `Core components include user authentication for secure access, a streamlined workflow addressing the core task, and a lightweight feedback mechanism to gather early insights for iteration.`,
+    
+    technicalFeasibility: `To be implemented using the MERN stack for rapid prototyping and scalability. Estimated development window: x weeks, handled by a small cross-functional team to accelerate delivery and feedback loops.`,
+    
+    keyMetrics: `Success measured by early adoption (x active users), repeat engagement rate (y%), and qualitative feedback indicating product-market fit (z%).`,
+    
+    futureScope: `Subsequent releases will expand functionality with analytics dashboards, advanced customization, and integrations with third-party platforms based on validated user feedback.`,
+  },
+},
+
     {
-      id: 'mvp',
-      name: 'MVP (Minimum Viable Product) PRD',
-      description: 'For defining and launching the first minimal version of a product.',
-      category: 'mvp',
-      template: {
-        problemStatement: `Need to validate market demand for [idea/problem space].`,
-        userPersonas: `Early adopters in [industry/segment], typically small teams or startups.`,
-        painPoints: `High manual effort in [process], lack of affordable tools.`,
-        overview: `Market analysis indicates a gap in lightweight, no-frills solutions.`,
-        userFlow: `User signs up → completes setup → achieves value in 5 minutes.`,
-        solution: `Build core functionality to address one high-impact problem.`,
-        features: `1. Authentication\n2. Core workflow\n3. Feedback collection`,
-        technicalFeasibility: `Tech stack: MERN. Target 4-week sprint with limited team of 3 developers.`,
-        keyMetrics: `>100 active users, 40% repeat usage, qualitative feedback collected.`,
-        futureScope: `Phase 2: Add advanced analytics and integrations.`,
-      },
-    },
+  id: "integration",
+  name: "Integration PRD",
+  description: "Design and implement seamless data exchange between existing platforms to eliminate manual workflows and improve operational efficiency.",
+  category: "integration",
+  template: {
+    problemStatement: `Current processes require teams to manually transfer data between [Tool A] and [Tool B], leading to inefficiencies, data mismatches, and operational delays. The absence of integration slows collaboration and increases the risk of human error.`,
+    
+    userPersonas: `Primary: Operations teams responsible for maintaining system consistency and data integrity.\nSecondary: Analytics teams relying on unified data for reporting and performance tracking.`,
+    
+    painPoints: `Redundant data entry, frequent synchronization issues, and manual corrections consume time and reduce productivity. Lack of real-time updates results in inconsistent insights across systems.`,
+    
+    overview: `Internal reports and user interviews indicate that teams lose approximately x hours weekly resolving sync-related issues. Streamlined integration can recover this time and significantly improve workflow accuracy and speed.`,
+    
+    userFlow: `User initiates or updates data in [Tool A] → integration automatically syncs relevant records to [Tool B] → confirmation logged and displayed via dashboard.`,
+    
+    solution: `Develop a robust bi-directional integration that enables automated, real-time data synchronization between both platforms. Include flexible sync configurations and transparent error reporting for better control and reliability.`,
+    
+    features: `Secure OAuth2 authentication for trusted access, automated synchronization scheduler to manage frequency and load, and a centralized monitoring dashboard for viewing sync history and resolving errors.`,
+    
+    technicalFeasibility: `Implementation through RESTful APIs from both platforms, adhering to authentication and rate limit policies (up to x API calls/hour). Includes logging, validation, and rollback capabilities to ensure data consistency.`,
+    
+    keyMetrics: `Data synchronization success rate above x%, reduction of manual work by y hours per user weekly, and measurable decrease in data discrepancy incidents (−z%).`,
+    
+    futureScope: `Introduce webhook-based real-time triggers for instant updates, expand integration to additional tools, and add analytics for tracking sync performance and system health.`,
+  },
+},
+
     {
-      id: 'integration',
-      name: 'Integration PRD',
-      description: 'For building integrations between existing systems or third-party APIs.',
-      category: 'integration',
-      template: {
-        problemStatement: `Teams manually transfer data between [Tool A] and [Tool B], causing inefficiency.`,
-        userPersonas: `Ops and Analytics teams needing seamless workflow automation.`,
-        painPoints: `Duplicate data entries, human error, lack of synchronization.`,
-        overview: `Weekly 10+ hours lost per user due to disconnected tools.`,
-        userFlow: `User performs [task] in Tool A → data syncs to Tool B automatically.`,
-        solution: `Develop bi-directional API integration between both platforms.`,
-        features: `1. Secure OAuth2 connection\n2. Sync scheduler\n3. Error handling dashboard`,
-        technicalFeasibility: `API limit 500 calls/hour; must comply with both platforms’ authentication policies.`,
-        keyMetrics: `Data sync success rate > 98%, time saved 8h/week per user.`,
-        futureScope: `Add webhook-triggered automation and analytics tracking.`,
-      },
-    },
-    {
-      id: 'platform-redesign',
-      name: 'Platform Redesign PRD',
-      description: 'For complete visual and UX redesign of an existing product platform.',
-      category: 'redesign',
-      template: {
-        problemStatement: `Outdated design and inconsistent branding affecting user perception.`,
-        userPersonas: `Long-term users expecting modern UI; new users evaluating trial experience.`,
-        painPoints: `Hard navigation, inconsistent UI components, low visual hierarchy.`,
-        overview: `Usability testing score 65/100 — below market benchmarks.`,
-        userFlow: `User signs up → explores dashboard → confusion with feature discoverability.`,
-        solution: `Redesign entire platform with modular, accessible, and responsive design.`,
-        features: `1. Unified design system\n2. Responsive grid\n3. Improved onboarding UX`,
-        technicalFeasibility: `Requires front-end rebuild with React + Tailwind; minimal backend changes.`,
-        keyMetrics: `Improved engagement by 50%, reduced churn by 25%, higher NPS.`,
-        futureScope: `Introduce dark mode, micro-interactions, and adaptive layouts.`,
-      },
-    },
+  id: "platform-redesign",
+  name: "Platform Redesign PRD",
+  description: "Revamp the product’s visual identity and user experience to align with modern design standards, enhance usability, and strengthen brand perception.",
+  category: "redesign",
+  template: {
+    problemStatement: `The current platform suffers from an outdated interface, inconsistent design elements, and fragmented user flows. These issues reduce user trust, increase churn, and limit adoption among new users evaluating the product.`,
+    
+    userPersonas: `Primary: Long-term users seeking a modern, intuitive interface that improves daily usability.\nSecondary: New users forming first impressions during onboarding and evaluation phases.`,
+    
+    painPoints: `Users face cluttered layouts, inconsistent UI components, and lack of visual clarity, leading to higher cognitive load and poor task efficiency.`,
+    
+    overview: `Recent UX audits and user feedback indicate a usability score of x/100 — below industry standards. The redesign aims to address navigation inefficiencies, improve readability, and create a cohesive design language that scales with future features.`,
+    
+    userFlow: `User signs up → explores dashboard → experiences unclear navigation hierarchy → struggles to locate key functionalities.`,
+    
+    solution: `Reimagine the entire platform using a modular, responsive, and accessibility-first design system. Establish a unified visual framework that enhances brand consistency and improves user interaction quality across all devices.`,
+    
+    features: `Comprehensive design system for reusability, flexible grid-based responsive layouts, and streamlined onboarding flow that guides users intuitively through core features.`,
+    
+    technicalFeasibility: `Front-end rebuild using React and Tailwind CSS for faster iteration and component reusability. Minimal backend dependency ensures low implementation risk and phased rollout capability.`,
+    
+    keyMetrics: `Increase engagement by x%, reduce churn by y%, and elevate overall NPS by z points through improved satisfaction and perceived product quality.`,
+    
+    futureScope: `Add dark mode support, introduce micro-interactions for richer feedback, and integrate adaptive layouts that personalize user experiences based on behavior.`,
+  },
+}
+
   ];
 
 

@@ -23,7 +23,8 @@ const PRDGenerator: React.FC<PRDGeneratorProps> = ({ onSave, template, onBack })
     solution: '',
     technicalFeasibility: '',
     keyMetrics: '',
-    futureScope: ''
+    futureScope: '',
+    
   });
 
   const [generatedPRD, setGeneratedPRD] = useState<PRD | null>(null);

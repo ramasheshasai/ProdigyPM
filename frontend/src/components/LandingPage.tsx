@@ -104,7 +104,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
       <section className="bg-white py-16 border-t border-primary-100">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
           <Stat number="85%" label="Time Saved per PRD" />
-          <Stat number="12+" label="Predefined Sections" />
+          <Stat number="10+" label="Predefined Sections" />
           <Stat number="4+" label="Expert Templates" />
         </div>
       </section>

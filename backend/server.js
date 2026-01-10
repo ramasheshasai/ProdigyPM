@@ -10,7 +10,16 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://prodigypm.vercel.app", // ⚠️ replace with your real Vercel URL
+    ],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 // MongoDB Atlas connection

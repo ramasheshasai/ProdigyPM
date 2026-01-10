@@ -16,21 +16,24 @@ const Signup: React.FC = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
+  e.preventDefault();
+  setError("");
 
-    try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/auth/signup`,
-        formData
-      );
+  try {
+    const res = await axios.post(
+      `${import.meta.env.VITE_API_BASE_URL}/auth/signup`,
+      formData
+    );
 
-      localStorage.setItem("authToken", res.data.token);
-      navigate("/landing");
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Signup failed. Try again.");
-    }
-  };
+    localStorage.setItem("authToken", res.data.token);
+    localStorage.setItem("userId", res.data.user._id);
+
+    navigate("/landing");
+  } catch (err: any) {
+    setError(err.response?.data?.message || "Signup failed. Try again.");
+  }
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">

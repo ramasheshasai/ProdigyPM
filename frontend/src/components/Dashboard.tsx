@@ -16,7 +16,9 @@ const Dashboard: React.FC<DashboardProps> = ({ prds: initialPRDs, onBack }) => {
         const userId = localStorage.getItem("userId");
         if (!userId) return;
 
-        const response = await fetch(`http://localhost:5000/api/prds/${userId}`);
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/prds/${userId}`
+        );
         const data = await response.json();
         setPrds(data);
       } catch (error) {

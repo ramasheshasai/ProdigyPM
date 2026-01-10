@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowLeft, Zap } from 'lucide-react';
-import { PRD } from '../types/prd';
-import PRDOutput from './PRDOutput';
+import React, { useState, useEffect } from "react";
+import { ArrowLeft, Zap } from "lucide-react";
+import { PRD } from "../types/prd";
+import PRDOutput from "./PRDOutput";
 
 interface PRDGeneratorProps {
   onSave: (prd: PRD) => void;
@@ -9,22 +9,25 @@ interface PRDGeneratorProps {
   onBack: () => void;
 }
 
-const PRDGenerator: React.FC<PRDGeneratorProps> = ({ onSave, template, onBack }) => {
+const PRDGenerator: React.FC<PRDGeneratorProps> = ({
+  onSave,
+  template,
+  onBack,
+}) => {
   const [formData, setFormData] = useState({
-    problemStatement: '',
-    targetAudience: '',
-    goals: '',
-    features: '',
-    constraints: '',
-    userPersonas: '',
-    painPoints: '',
-    overview: '',
-    userFlow: '',
-    solution: '',
-    technicalFeasibility: '',
-    keyMetrics: '',
-    futureScope: '',
-    
+    problemStatement: "",
+    targetAudience: "",
+    goals: "",
+    features: "",
+    constraints: "",
+    userPersonas: "",
+    painPoints: "",
+    overview: "",
+    userFlow: "",
+    solution: "",
+    technicalFeasibility: "",
+    keyMetrics: "",
+    futureScope: "",
   });
 
   const [generatedPRD, setGeneratedPRD] = useState<PRD | null>(null);
@@ -32,17 +35,19 @@ const PRDGenerator: React.FC<PRDGeneratorProps> = ({ onSave, template, onBack })
 
   useEffect(() => {
     if (template) {
-      setFormData(template.template);
+      setFormData(template({
+        ...template.template,
+      });
     }
   }, [template]);
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const generatePRD = async () => {
     setIsGenerating(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     const prd: PRD = {
       title: extractTitle(formData.problemStatement),
@@ -52,12 +57,16 @@ const PRDGenerator: React.FC<PRDGeneratorProps> = ({ onSave, template, onBack })
       features: formData.features,
       constraints: formData.constraints,
       objectives: generateObjectives(formData.goals),
-      userStories: generateUserStories(formData.targetAudience, formData.features),
+      userStories: generateUserStories(
+        formData.targetAudience,
+        formData.features
+      ),
       requirements: generateRequirements(formData.features),
-      acceptanceCriteria: generateAcceptanceCriteria(formData.features),
-      metrics: generateMetrics(formData.goals),
-      risks: generateRisks(formData.constraints),
-      createdAt: new Date()
+     acceptanceCriteria: generateAcceptanceCriteria(),
+metrics: generateMetrics(),
+risks: generateRisks(formData.constraints),
+
+      createdAt: new Date(),
     };
 
     setGeneratedPRD(prd);
@@ -65,93 +74,101 @@ const PRDGenerator: React.FC<PRDGeneratorProps> = ({ onSave, template, onBack })
   };
 
   const extractTitle = (problemStatement: string): string => {
-    const words = problemStatement.split(' ').slice(0, 6);
-    return words.length > 0 ? `PRD: ${words.join(' ')}...` : 'Product Requirement Document';
+    const words = problemStatement.split(" ").slice(0, 6);
+    return words.length
+      ? `PRD: ${words.join(" ")}...`
+      : "Product Requirement Document";
   };
 
   const generateObjectives = (goals: string): string[] => [
     `Deliver a solution that addresses: ${goals}`,
-    'Ensure user adoption meets target metrics',
-    'Maintain system performance and reliability',
-    'Provide measurable business value'
+    "Ensure user adoption meets target metrics",
+    "Maintain system performance and reliability",
+    "Provide measurable business value",
   ];
 
-  const generateUserStories = (audience: string, features: string): string[] => [
+  const generateUserStories = (
+    audience: string,
+    features: string
+  ): string[] => [
     `As a ${audience}, I want to use ${features} so that I can achieve my goal.`,
     `As a ${audience}, I want intuitive design so that I can use it easily.`,
-    'As a stakeholder, I want measurable metrics to track progress.'
+    "As a stakeholder, I want measurable metrics to track progress.",
   ];
 
   const generateRequirements = (features: string): string[] => [
-    'Functional Requirements:',
+    "Functional Requirements:",
     `- Implement ${features}`,
-    '- Responsive UI design',
-    '- User authentication and authorization',
-    '',
-    'Non-Functional Requirements:',
-    '- 99.9% uptime',
-    '- Accessibility compliance',
-    '- Secure data handling'
+    "- Responsive UI design",
+    "- User authentication and authorization",
+    "",
+    "Non-Functional Requirements:",
+    "- 99.9% uptime",
+    "- Accessibility compliance",
+    "- Secure data handling",
   ];
 
-  const generateAcceptanceCriteria = (features: string): string[] => [
-    '✓ Feature works as described',
-    '✓ All user stories are satisfied',
-    '✓ UI responsive on all devices',
-    '✓ Performance benchmarks met'
+  const generateAcceptanceCriteria = (): string[] => [
+    "✓ Feature works as described",
+    "✓ All user stories are satisfied",
+    "✓ UI responsive on all devices",
+    "✓ Performance benchmarks met",
   ];
 
-  const generateMetrics = (goals: string): string[] => [
-    'User Adoption: 80% of target users within 30 days',
-    'Performance: Task time reduced by 40%',
-    'Quality: Less than 2% error rate',
-    'Satisfaction: 4.5+ star user feedback'
+  const generateMetrics = (): string[] => [
+    "User Adoption: 80% of target users within 30 days",
+    "Performance: Task time reduced by 40%",
+    "Quality: Less than 2% error rate",
+    "Satisfaction: 4.5+ star user feedback",
   ];
 
   const generateRisks = (constraints: string): string[] => [
-    `Technical Risk: ${constraints || 'Integration challenges'}`,
-    'Timeline Risk: External dependencies',
-    'User Adoption Risk: Training requirements',
-    'Security Risk: Data privacy and compliance'
+    `Technical Risk: ${constraints || "Integration challenges"}`,
+    "Timeline Risk: External dependencies",
+    "User Adoption Risk: Training requirements",
+    "Security Risk: Data privacy and compliance",
   ];
 
+  // ================= SAVE PRD (FIXED FOR PRODUCTION) =================
   if (generatedPRD) {
-  const handleSave = async () => {
-    const userId = localStorage.getItem("userId"); // 🔑 Get logged-in user's ID
-    if (!userId) {
-      alert("User not found — please log in again.");
-      return;
-    }
-
-    try {
-      const response = await fetch("http://localhost:5000/api/prds", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...generatedPRD, userId }),
-      });
-
-      if (response.ok) {
-        alert("✅ PRD saved successfully!");
-        onSave(generatedPRD);
-      } else {
-        alert("❌ Failed to save PRD.");
+    const handleSave = async () => {
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        alert("User not found — please log in again.");
+        return;
       }
-    } catch (err) {
-      console.error("Error saving PRD:", err);
-      alert("⚠️ Something went wrong while saving the PRD.");
-    }
-  };
 
-  return (
-    <PRDOutput
-      prd={generatedPRD}
-      onSave={handleSave} // 👈 use the new function
-      onBack={() => setGeneratedPRD(null)}
-      onHome={onBack}
-    />
-  );
-}
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/prds`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...generatedPRD, userId }),
+          }
+        );
 
+        if (response.ok) {
+          alert("✅ PRD saved successfully!");
+          onSave(generatedPRD);
+        } else {
+          alert("❌ Failed to save PRD.");
+        }
+      } catch (err) {
+        console.error("Error saving PRD:", err);
+        alert("⚠️ Something went wrong while saving the PRD.");
+      }
+    };
+
+    return (
+      <PRDOutput
+        prd={generatedPRD}
+        onSave={handleSave}
+        onBack={() => setGeneratedPRD(null)}
+        onHome={onBack}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-beige-200">
@@ -160,69 +177,32 @@ const PRDGenerator: React.FC<PRDGeneratorProps> = ({ onSave, template, onBack })
           <div className="flex items-center justify-between h-16">
             <button
               onClick={onBack}
-              className="flex items-center space-x-2 text-beige-300 hover:text-white transition-colors font-body"
+              className="flex items-center space-x-2 text-beige-300 hover:text-white"
             >
               <ArrowLeft className="h-5 w-5" />
               <span>Back to Home</span>
             </button>
-            <h1 className="text-xl font-semibold text-white font-sans">Create PRD</h1>
-            <div></div>
+            <h1 className="text-xl font-semibold text-white">Create PRD</h1>
           </div>
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow-sm p-8 border border-primary-200">
-          <h2 className="text-2xl font-bold text-primary-900 mb-2 font-sans">
-            Document Your Product Requirements
-          </h2>
-          <p className="text-primary-600 font-body mb-8">
-            Complete the sections below to create a structured Product Requirement Document.
-          </p>
-
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="bg-white rounded-lg shadow-sm p-8 border">
           <form className="space-y-6">
-            {/* Existing fields */}
-            <Textarea label="Scenario / Problem Statement *" field="problemStatement" value={formData.problemStatement} placeholder="Describe the problem..." onChange={handleInputChange} />
-            <Input label="Target Audience / Users *" field="targetAudience" value={formData.targetAudience} placeholder="Who will use this feature?" onChange={handleInputChange} />
-            <Input label="Goals / Outcomes *" field="goals" value={formData.goals} placeholder="What do you want to achieve?" onChange={handleInputChange} />
-            <Textarea label="Features Needed *" field="features" value={formData.features} placeholder="List the key features..." onChange={handleInputChange} />
-            <Textarea label="Constraints / Dependencies" field="constraints" value={formData.constraints} placeholder="Any technical, time, or resource constraints..." onChange={handleInputChange} />
+            <Textarea label="Problem Statement" field="problemStatement" value={formData.problemStatement} placeholder="Describe the problem..." onChange={handleInputChange} />
+            <Input label="Target Audience" field="targetAudience" value={formData.targetAudience} placeholder="Who will use this?" onChange={handleInputChange} />
+            <Input label="Goals" field="goals" value={formData.goals} placeholder="What do you want to achieve?" onChange={handleInputChange} />
+            <Textarea label="Features" field="features" value={formData.features} placeholder="Key features..." onChange={handleInputChange} />
+            <Textarea label="Constraints" field="constraints" value={formData.constraints} placeholder="Constraints..." onChange={handleInputChange} />
 
-            {/* New fields */}
-            <Textarea label="User Personas" field="userPersonas" value={formData.userPersonas} placeholder="Who are the types of users?" onChange={handleInputChange} />
-            <Textarea label="Pain Points" field="painPoints" value={formData.painPoints} placeholder="What problems are users facing?" onChange={handleInputChange} />
-            <Textarea label="Overview" field="overview" value={formData.overview} placeholder="Brief overview of the solution..." onChange={handleInputChange} />
-            <Textarea label="User Flow" field="userFlow" value={formData.userFlow} placeholder="Describe the user journey..." onChange={handleInputChange} />
-            <Textarea label="Solution" field="solution" value={formData.solution} placeholder="Proposed solution and benefits..." onChange={handleInputChange} />
-            <Textarea label="Technical Feasibility" field="technicalFeasibility" value={formData.technicalFeasibility} placeholder="Any technical challenges or dependencies..." onChange={handleInputChange} />
-            <Textarea label="Key Metrics" field="keyMetrics" value={formData.keyMetrics} placeholder="How will success be measured?" onChange={handleInputChange} />
-            <Textarea label="Future Scope" field="futureScope" value={formData.futureScope} placeholder="Possible improvements or expansions..." onChange={handleInputChange} />
-
-            {/* Submit button */}
             <button
               type="button"
               onClick={generatePRD}
-              disabled={
-                !formData.problemStatement ||
-                !formData.targetAudience ||
-                !formData.goals ||
-                !formData.features ||
-                isGenerating
-              }
-              className="w-full bg-olive-700 hover:bg-olive-800 disabled:bg-primary-400 text-white px-6 py-4 rounded-lg 
-                       text-lg font-semibold transition-colors flex items-center justify-center space-x-2 font-sans"
+              disabled={isGenerating}
+              className="w-full bg-olive-700 hover:bg-olive-800 text-white py-4 rounded-lg flex items-center justify-center space-x-2"
             >
-              {isGenerating ? (
-                <>
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                  <span>Creating Document...</span>
-                </>
-              ) : (
-                <>
-                  <Zap className="h-5 w-5" />
-                  <span>Create PRD</span>
-                </>
-              )}
+              {isGenerating ? "Creating..." : <><Zap className="h-5 w-5" /><span>Create PRD</span></>}
             </button>
           </form>
         </div>
@@ -231,7 +211,8 @@ const PRDGenerator: React.FC<PRDGeneratorProps> = ({ onSave, template, onBack })
   );
 };
 
-// ✅ Reusable Input and Textarea components
+// ================= REUSABLE INPUTS =================
+
 interface FieldProps {
   label: string;
   field: string;
@@ -240,29 +221,41 @@ interface FieldProps {
   onChange: (field: string, value: string) => void;
 }
 
-const Input: React.FC<FieldProps> = ({ label, field, value, placeholder, onChange }) => (
+const Input: React.FC<FieldProps> = ({
+  label,
+  field,
+  value,
+  placeholder,
+  onChange,
+}) => (
   <div>
-    <label className="block text-sm font-semibold text-primary-900 mb-2 font-sans">{label}</label>
+    <label className="block font-semibold mb-2">{label}</label>
     <input
-      type="text"
       value={value}
-      onChange={(e) => onChange(field, e.target.value)}
-      className="w-full px-4 py-3 border border-primary-300 rounded-lg focus:ring-2 focus:ring-olive-500 
-                 focus:border-olive-500 transition-colors font-body bg-beige-50"
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+  onChange(field, e.target.value)
+}
+
+      className="w-full border rounded-lg px-4 py-3"
       placeholder={placeholder}
     />
   </div>
 );
 
-const Textarea: React.FC<FieldProps> = ({ label, field, value, placeholder, onChange }) => (
+const Textarea: React.FC<FieldProps> = ({
+  label,
+  field,
+  value,
+  placeholder,
+  onChange,
+}) => (
   <div>
-    <label className="block text-sm font-semibold text-primary-900 mb-2 font-sans">{label}</label>
+    <label className="block font-semibold mb-2">{label}</label>
     <textarea
       value={value}
       onChange={(e) => onChange(field, e.target.value)}
       rows={3}
-      className="w-full px-4 py-3 border border-primary-300 rounded-lg focus:ring-2 focus:ring-olive-500 
-                 focus:border-olive-500 resize-none transition-colors font-body bg-beige-50"
+      className="w-full border rounded-lg px-4 py-3"
       placeholder={placeholder}
     />
   </div>

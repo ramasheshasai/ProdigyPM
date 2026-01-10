@@ -15,24 +15,26 @@ const Login: React.FC = () => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/auth/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password,
+          }),
+        }
+      );
 
       const res = await response.json();
 
       if (response.ok) {
-        // ✅ Save token and user ID in localStorage
         localStorage.setItem("authToken", res.token);
-        localStorage.setItem("userId", res.user._id); // 👈 make sure backend sends _id in res
+        localStorage.setItem("userId", res.user._id);
 
         alert("Login successful!");
-        navigate("/landing"); // Redirect after login
+        navigate("/landing");
       } else {
         setError(res.message || "Invalid credentials");
       }

@@ -20,9 +20,13 @@ const Signup: React.FC = () => {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/signup", formData);
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/auth/signup`,
+        formData
+      );
+
       localStorage.setItem("authToken", res.data.token);
-      navigate("/landing"); // ✅ redirect to landing after signup
+      navigate("/landing");
     } catch (err: any) {
       setError(err.response?.data?.message || "Signup failed. Try again.");
     }
@@ -30,7 +34,10 @@ const Signup: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg w-96">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-6 rounded-lg shadow-lg w-96"
+      >
         <h2 className="text-2xl font-bold mb-4 text-center">Sign Up</h2>
         {error && <p className="text-red-500 mb-2 text-sm">{error}</p>}
 
@@ -64,7 +71,10 @@ const Signup: React.FC = () => {
           required
         />
 
-        <button type="submit" className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
+        <button
+          type="submit"
+          className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
+        >
           Sign Up
         </button>
 

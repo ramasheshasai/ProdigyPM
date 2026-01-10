@@ -19,6 +19,8 @@ const PRDSchema = new mongoose.Schema({
   metrics: [String],
   risks: [String],
   createdAt: { type: Date, default: Date.now }
+
+  
 });
 
 export default mongoose.model("PRD", PRDSchema);

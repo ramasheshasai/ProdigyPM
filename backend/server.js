@@ -5,29 +5,26 @@ import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import prdRoutes from "./routes/prdRoutes.js";
 
-// import userRoutes from "./userRoutes.js"; // ✅ if you have this
-
 dotenv.config();
 
 const app = express();
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// ✅ FIXED: Use IPv4 and fallback to 127.0.0.1
-const mongoURI = process.env.MONGO_URI.replace("localhost", "127.0.0.1");
-
+// MongoDB Atlas connection
 mongoose
-  .connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    family: 4, // 👈 forces IPv4 connection
-  })
-  .then(() => console.log("✅ MongoDB connected successfully"))
-  .catch((err) => console.error("❌ MongoDB Connection Failed:", err));
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB Atlas connected successfully"))
+  .catch(err => console.error("❌ MongoDB connection error:", err));
 
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/prds", prdRoutes);
-// app.use("/api/users", userRoutes); // optional
 
+// Server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});

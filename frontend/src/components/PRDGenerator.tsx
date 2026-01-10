@@ -34,12 +34,11 @@ const PRDGenerator: React.FC<PRDGeneratorProps> = ({
   const [isGenerating, setIsGenerating] = useState(false);
 
   useEffect(() => {
-    if (template) {
-      setFormData(template({
-        ...template.template,
-      });
+    if (template?.template) {
+      setFormData(template.template);
     }
   }, [template]);
+
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));

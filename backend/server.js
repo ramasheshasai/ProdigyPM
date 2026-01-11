@@ -9,24 +9,25 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
+// ✅ CORS FIX (IMPORTANT)
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://prodigypm.vercel.app", // ⚠️ replace with your real Vercel URL
-    ],
-    credentials: true,
+    origin: "https://prodigy-pm.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
+// ✅ Handle preflight explicitly
+app.options("*", cors());
+
 app.use(express.json());
 
-// MongoDB Atlas connection
+// MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB Atlas connected successfully"))
-  .catch(err => console.error("❌ MongoDB connection error:", err));
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 // Routes
 app.use("/api/auth", authRoutes);
